@@ -31,7 +31,7 @@ TEST_F(StackTest, PopFunctionTest) {
     push(stack, 7);
     push(stack, 5);
     pop(stack);
-    EXPECT_EQ(getTop(stack)->data, 5);
+    EXPECT_EQ(getTop(stack)->data, 7);
     pop(stack);
     EXPECT_TRUE(isEmpty(stack));
 };
@@ -93,5 +93,5 @@ TEST_F(StackTest, TraverseStackFunctionTest) {
     testing::internal::CaptureStdout();
     traverseStack(stack);
     std::string output = testing::internal::GetCapturedStdout();
-    EXPECT_EQ(output, "Stack elements: 4 7 1\n");
+    EXPECT_EQ(output, "Stack elements: 1 7 4 \n");
 }
