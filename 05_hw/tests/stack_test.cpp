@@ -3,7 +3,7 @@
 
 class StackTest : public ::testing::Test {
   protected:
-    Stack* stack;
+    Stack* stack = new Stack();
 
   private:
     void SetUp() override {
