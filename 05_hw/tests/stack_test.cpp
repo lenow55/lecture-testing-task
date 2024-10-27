@@ -1,3 +1,4 @@
+#include <csignal>
 #include <gtest/gtest.h>
 #include <stack.h>
 
@@ -27,6 +28,11 @@ TEST_F(StackTest, PushFunctionTest) {
     EXPECT_FALSE(isEmpty(stack));
 };
 
+// Обработчик для SIGSEGV
+void SignalHandler(int signal) {
+    throw std::runtime_error("Segmentation fault captured");
+}
+
 TEST_F(StackTest, PopFunctionTest) {
     push(stack, 7);
     push(stack, 5);
@@ -34,6 +40,12 @@ TEST_F(StackTest, PopFunctionTest) {
     EXPECT_EQ(getTop(stack)->data, 7);
     pop(stack);
     EXPECT_TRUE(isEmpty(stack));
+
+    std::signal(SIGSEGV, SignalHandler);
+    EXPECT_NO_THROW(pop(stack));
+
+    // Восстанавливаем стандартное поведение для сигнала после теста
+    std::signal(SIGSEGV, SIG_DFL);
 };
 
 TEST_F(StackTest, SearchByValueFunctionTest) {
