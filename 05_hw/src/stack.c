@@ -30,8 +30,13 @@ void push(Stack* stack, int data) {
 }
 
 void pop(Stack* stack) {
+    if (stack->top == NULL) {
+        return;
+    }
     Node* temp = stack->top;
     stack->top = stack->top->next;
+    free(temp);
+    temp = NULL;
 }
 
 Node* searchByValue(Stack* stack, int value) {
