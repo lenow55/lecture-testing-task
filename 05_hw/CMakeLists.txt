@@ -5,6 +5,7 @@ enable_testing()
 
 add_subdirectory(src)
 add_subdirectory(tests)
+add_subdirectory(benchmarks)
 
 if(CMAKE_EXPORT_COMPILE_COMMANDS)
     find_program(CLANG_EXECUTABLE clang)
