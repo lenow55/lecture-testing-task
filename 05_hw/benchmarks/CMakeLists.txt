@@ -11,8 +11,18 @@ FetchContent_MakeAvailable(googlebenchmark)
 
 add_executable(stack_benchmark stack_benchmark.cpp)
 
-target_link_libraries(stack_benchmark
-  PRIVATE
-    benchmark::benchmark
-    stack_lib
-)
+
+if(STACKLIB_COVERAGE)
+    target_link_libraries(stack_benchmark
+      PRIVATE
+        benchmark::benchmark
+        stack_lib
+        gcov
+    )
+else()
+    target_link_libraries(stack_benchmark
+      PRIVATE
+        benchmark::benchmark
+        stack_lib
+    )
+endif()
