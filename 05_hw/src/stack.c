@@ -17,7 +17,7 @@ void initStack(Stack* stack) {
 void destroyStack(Stack* stack) {
     Node* current = stack->top;
     while (current != NULL) {
-        Node* tmp = current;
+        // Node* tmp = current;
         current = current->next;
         free(tmp);
     }
@@ -35,8 +35,8 @@ void pop(Stack* stack) {
     }
     Node* temp = stack->top;
     stack->top = stack->top->next;
-    // free(temp);
-    // temp = NULL;
+    free(temp);
+    temp = NULL;
 }
 
 Node* searchByValue(Stack* stack, int value) {
