@@ -61,6 +61,9 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get install -y cmake clang-tidy clang clang-tools
 
+      - name: Check analyzer
+        run: analyze-build --help
+
       - name: Configure CMake
         run: cmake -B build -S . -DCMAKE_EXPORT_COMPILE_COMMANDS=True -DCMAKE_BUILD_TYPE=Asan
 
