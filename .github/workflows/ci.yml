@@ -39,10 +39,10 @@ jobs:
         run: ls -lah ./coverage/
 
       - name: uppload cov report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: cov-report
-          path: 05_hw/coverage/index.html
+          path: 05_hw/coverage/
 
   analyze:
     runs-on: ubuntu-latest
