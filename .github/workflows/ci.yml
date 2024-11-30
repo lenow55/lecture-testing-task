@@ -70,6 +70,8 @@ jobs:
           sudo ./llvm.sh 17
           # llvm-config --version
           clang --version
+          export $LLVM_HOME=/usr/lib/llvm-15
+          export $PATH=$LLVM_HOME/bin:$PATH
           env
 
       - name: Check analyzer
@@ -79,7 +81,7 @@ jobs:
         run: cmake -B build -S . -DCMAKE_EXPORT_COMPILE_COMMANDS=True -DCMAKE_BUILD_TYPE=Asan
 
       - name: Build project and run scan
-        run: cmake --build --target main
+        run: cmake --build build --target main
       #   run: scan-build -o ./scan-build-out cmake --build build --target main
       #     && cd build
       #     && scan-build -o ../scan-build-out make
