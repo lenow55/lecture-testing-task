@@ -42,7 +42,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: cov-report
-          path: coverage/index.html
+          path: 05_hw/coverage/index.html
 
   analyze:
     runs-on: ubuntu-latest
