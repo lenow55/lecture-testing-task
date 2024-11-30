@@ -69,9 +69,6 @@ jobs:
           echo "/usr/lib/llvm-15/bin" >> $GITHUB_PATH
           echo "Added to PATH"
 
-      - name: Check analyzer
-        run: analyze-build --help
-
       - name: Configure CMake
         run: cmake -B build -S . -DCMAKE_EXPORT_COMPILE_COMMANDS=True -DCMAKE_BUILD_TYPE=Asan
 
@@ -79,9 +76,7 @@ jobs:
         run: cmake --build build --target main
 
       - name: Run analyze
-        run: |
-          cmake --build build --target analyze
-          ls ./build/analyzer/**/
+        run: cmake --build build --target analyze
 
       - name: uppload clang-tidy report
         uses: actions/upload-artifact@v4
