@@ -70,9 +70,15 @@ jobs:
           sudo ./llvm.sh 17
           # llvm-config --version
           clang --version
-          export $LLVM_HOME=/usr/lib/llvm-15
-          export $PATH=$LLVM_HOME/bin:$PATH
           env
+
+      - name: Add directory to PATH
+        run: |
+          echo "/usr/lib/llvm-15/bin" >> $GITHUB_PATH
+          echo "Added to PATH"
+
+      - name: Verify PATH
+        run: env
 
       - name: Check analyzer
         run: sudo find / -iname analyze-build
