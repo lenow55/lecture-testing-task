@@ -69,8 +69,8 @@ jobs:
 
       - name: Build project and run scan
         run: -|
-          scan-build -o ./scan-build-out cmake --build build --target main \
-          && cd build \
+          scan-build -o ./scan-build-out cmake --build build --target main
+          && cd build
           && scan-build -o ../scan-build-out make
 
       # - name: Run analyze
