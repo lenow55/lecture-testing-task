@@ -30,12 +30,12 @@ jobs:
         run: cmake -B build -S . -DCMAKE_EXPORT_COMPILE_COMMANDS=True -DSTACKLIB_COVERAGE=ON
 
       - name: Build project and run ctest
-        run: cmake --build build --target tests
+        run: cmake --build build --target stack_test
 
       - name: Run ctest
         run: cmake --build build --target coverage
 
-  sanitize:
+  analyze:
     runs-on: ubuntu-latest
 
     defaults:
@@ -58,5 +58,5 @@ jobs:
       - name: Build project and run ctest
         run: cmake --build build --target main
 
-      - name: Run ctest
-        run: cmake --build build --target coverage
+      - name: Run analyze
+        run: cmake --build build --target analyze
