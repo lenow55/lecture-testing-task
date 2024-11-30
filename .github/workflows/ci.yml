@@ -33,7 +33,7 @@ jobs:
         run: cmake --build build
 
       - name: Run ctest
-        run: cmake --build build --target coverage
+        run: cmake --build build --target test
 
       - name: Run clang analyzing
         run: cmake --build build --target analyze
