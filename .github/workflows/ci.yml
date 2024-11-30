@@ -68,7 +68,8 @@ jobs:
           sudo wget https://apt.llvm.org/llvm.sh
           sudo chmod +x llvm.sh
           sudo ./llvm.sh 17
-          llvm-config --version
+          # llvm-config --version
+          clang --version
           env
 
       - name: Check analyzer
