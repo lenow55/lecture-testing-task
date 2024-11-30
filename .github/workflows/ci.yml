@@ -36,7 +36,7 @@ jobs:
         run: cmake --build build --target coverage
 
       - name: ls
-        run: tree -d ./coverage/
+        run: tree -d ./coverage/ && ls -lah ./coverage/
 
       - name: uppload cov report
         uses: actions/upload-artifact@v4
