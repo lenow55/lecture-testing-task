@@ -1,0 +1,32 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up CMake
+        uses: jwlawson/actions-setup-cmake@v1
+
+      - name: Install dependencies
+        run: sudo apt-get install -y gcc g++ cmake clang-tidy
+
+      - name: Configure CMake
+        run: cmake -B build -S 05_hw -DCMAKE_BUILD_TYPE=Asan -DCMAKE_EXPORT_COMPILE_COMMANDS=True -DSTACKLIB_COVERAGE=ON
+
+      - name: Build project and run ctest
+        run: cmake --build build --target coverage
+
+      - name: Run clang analyzing
+        run: cmake --build build --target analyze
