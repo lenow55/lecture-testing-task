@@ -59,10 +59,10 @@ jobs:
       #   uses: jwlawson/actions-setup-cmake@v2
 
       - name: Install dependencies
-        run: sudo apt-get install -y cmake clang-tidy clang clang-tools
+        run: sudo apt-get install -y cmake clang-tidy clang clang-tools clang-tools-extra
 
       - name: Check analyzer
-        run: analyze-build --help
+        run: python3 --version && dpkg -L clang-tools && analyze-build --help
 
       - name: Configure CMake
         run: cmake -B build -S . -DCMAKE_EXPORT_COMPILE_COMMANDS=True -DCMAKE_BUILD_TYPE=Asan
