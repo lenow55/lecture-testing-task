@@ -59,7 +59,7 @@ jobs:
       #   uses: jwlawson/actions-setup-cmake@v2
 
       - name: Install dependencies
-        run: sudo apt-get install -y cmake clang-tidy clang clang-tools clang-tools-extra
+        run: sudo apt-get install -y cmake clang-tidy clang clang-tools
 
       - name: Check analyzer
         run: python3 --version && dpkg -L clang-tools && analyze-build --help
