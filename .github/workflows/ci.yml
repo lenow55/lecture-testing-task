@@ -36,13 +36,13 @@ jobs:
         run: cmake --build build --target coverage
 
       - name: ls
-        run: tree -d ./coverage/ && ls -lah ./coverage/
+        run: ls -lah ./coverage/
 
       - name: uppload cov report
         uses: actions/upload-artifact@v4
         with:
-          name: cov_report
-          path: ./coverage/
+          name: cov-report
+          path: coverage/index.html
 
   analyze:
     runs-on: ubuntu-latest
@@ -71,7 +71,7 @@ jobs:
         run: cmake --build build --target analyze
 
       - name: uppload clang-tidy report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: clang-tidy-report
           path: build/analyzer/
