@@ -38,11 +38,8 @@ jobs:
       - name: ls
         run: ls -lah ./coverage/
 
-      - name: mv
-        run: mv coverage /coverage
-
       - name: uppload cov report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: cov-report
           path: coverage/index.html
