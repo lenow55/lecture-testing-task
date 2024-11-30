@@ -62,19 +62,20 @@ jobs:
         run: sudo apt-get install -y cmake clang-tidy clang clang-tools
 
       - name: Check analyzer
-        run: python3 --version && dpkg -L clang-tools && analyze-build --help
+        run: python3 --version && dpkg -L clang-tools
 
       - name: Configure CMake
         run: cmake -B build -S . -DCMAKE_EXPORT_COMPILE_COMMANDS=True -DCMAKE_BUILD_TYPE=Asan
 
-      - name: Build project and run ctest
-        run: cmake --build build --target main
+      - name: Build project and run scan
+        run: scan-build -o ./scan-build-out cmake --build build --target main
 
-      - name: Run analyze
-        run: cmake --build build --target analyze
+      # - name: Run analyze
+      #   run: cmake --build build --target analyze
 
       - name: uppload clang-tidy report
         uses: actions/upload-artifact@v4
         with:
           name: clang-tidy-report
-          path: hw_05/build/analyzer/
+          # path: hw_05/build/analyzer/
+          path: hw_05/scan-build-out/
