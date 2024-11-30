@@ -12,6 +12,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: ./05_hw
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -20,10 +24,10 @@ jobs:
         uses: jwlawson/actions-setup-cmake@v1
 
       - name: Install dependencies
-        run: sudo apt-get install -y gcc g++ cmake clang-tidy gcovr
+        run: sudo apt-get install -y gcc g++ cmake clang-tidy gcovr lcov
 
       - name: Configure CMake
-        run: cmake -B build -S 05_hw -DCMAKE_BUILD_TYPE=Asan -DCMAKE_EXPORT_COMPILE_COMMANDS=True -DSTACKLIB_COVERAGE=ON
+        run: cmake -B build -S . -DCMAKE_BUILD_TYPE=Asan -DCMAKE_EXPORT_COMPILE_COMMANDS=True -DSTACKLIB_COVERAGE=ON
 
       - name: Build project and run ctest
         run: cmake --build build
