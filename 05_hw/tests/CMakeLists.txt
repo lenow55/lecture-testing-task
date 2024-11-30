@@ -1,17 +1,19 @@
 # GTest include code would
 # go somewhere in here
 
-find_package(GTest REQUIRED)
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  GIT_REPOSITORY https://github.com/google/googletest.git
+  GIT_TAG v1.15.2
+  OVERRIDE_FIND_PACKAGE
+)
+
+find_package(googletest REQUIRED)
+
 include(GoogleTest)
 
 add_executable(stack_test stack_test.cpp)
-
-target_link_libraries(stack_test
-  PRIVATE
-    GTest::gtest_main
-    stack_lib
-    gcov
-)
 
 find_program(GCOVR_EXECUTABLE gcovr)
 
@@ -20,6 +22,13 @@ if(STACKLIB_COVERAGE AND GCOVR_EXECUTABLE)
 
     target_compile_options(stack_test PRIVATE --coverage)
     target_compile_options(stack_lib PRIVATE --coverage)
+
+    target_link_libraries(stack_test
+      PRIVATE
+        GTest::gtest_main
+        stack_lib
+        gcov
+    )
 
     add_custom_target(coverage
       COMMAND
@@ -37,6 +46,14 @@ elseif(STACKLIB_COVERAGE AND NOT GCOVR_EXECUTABLE)
     set(STACKLIB_COVERAGE OFF)
     message(WARNING
   "Для замеров покрытия кода тестами требуется программа gcovr")
+endif()
+
+if(NOT STACKLIB_COVERAGE)
+    target_link_libraries(stack_test
+      PRIVATE
+        GTest::gtest_main
+        stack_lib
+    )
 endif()
 
 include(CTest)
