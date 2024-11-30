@@ -62,7 +62,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install build-essential software-properties-common
-          sudo apt-add-repository “deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-15 main”
+          sudo apt-add-repository "deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-15 main"
           sudo apt-get install llvm-15
           llvm-config --version
           sudo apt-get install clang-15 lld-15 lldb-15 llvm-15-dev llvm-15-tools
@@ -87,5 +87,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: clang-tidy-report
-          # path: hw_05/build/analyzer/
-          path: hw_05/scan-build-out/
+          path: hw_05/build/analyzer/
+          # path: hw_05/scan-build-out/
