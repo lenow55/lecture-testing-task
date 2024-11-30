@@ -55,11 +55,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      # - name: Set up CMake
-      #   uses: jwlawson/actions-setup-cmake@v2
+      - name: Set up CMake
+        uses: jwlawson/actions-setup-cmake@v2
 
       - name: Install dependencies
-        run: sudo apt-get install -y cmake clang-tidy clang clang-tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install build-essential software-properties-common
+          sudo apt-add-repository “deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-15 main”
+          sudo apt-get install llvm-15
+          llvm-config --version
+          sudo apt-get install clang-15 lld-15 lldb-15 llvm-15-dev llvm-15-tools
+          env
 
       - name: Check analyzer
         run: python3 --version && dpkg -L clang-tools
@@ -68,12 +75,13 @@ jobs:
         run: cmake -B build -S . -DCMAKE_EXPORT_COMPILE_COMMANDS=True -DCMAKE_BUILD_TYPE=Asan
 
       - name: Build project and run scan
-        run: scan-build -o ./scan-build-out cmake --build build --target main
-          && cd build
-          && scan-build -o ../scan-build-out make
+        run: cmake --build --target main
+      #   run: scan-build -o ./scan-build-out cmake --build build --target main
+      #     && cd build
+      #     && scan-build -o ../scan-build-out make
 
-      # - name: Run analyze
-      #   run: cmake --build build --target analyze
+      - name: Run analyze
+        run: cmake --build build --target analyze
 
       - name: uppload clang-tidy report
         uses: actions/upload-artifact@v4
