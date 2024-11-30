@@ -70,7 +70,7 @@ jobs:
           echo "Added to PATH"
 
       - name: Check analyzer
-        run: analyze-build
+        run: analyze-build --help
 
       - name: Configure CMake
         run: cmake -B build -S . -DCMAKE_EXPORT_COMPILE_COMMANDS=True -DCMAKE_BUILD_TYPE=Asan
