@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  build:
+  common-steps:
     runs-on: ubuntu-latest
 
     defaults:
@@ -24,16 +24,24 @@ jobs:
         uses: jwlawson/actions-setup-cmake@v1
 
       - name: Install dependencies
-        run: sudo apt-get install -y gcc g++ cmake clang-tidy gcovr lcov
+        run: sudo apt-get install -y gcc g++ cmake clang-tidy
+
+  coverage:
+    runs-on: ubuntu-latest
+    needs: common-steps
+
+    defaults:
+      run:
+        working-directory: ./05_hw
+    steps:
+      - name: Install dependencies
+        run: sudo apt-get install -y gcovr lcov
 
       - name: Configure CMake
-        run: cmake -B build -S . -DCMAKE_EXPORT_COMPILE_COMMANDS=True
+        run: cmake -B build -S . -DCMAKE_EXPORT_COMPILE_COMMANDS=True -DSTACKLIB_COVERAGE=ON
 
       - name: Build project and run ctest
-        run: cmake --build build
+        run: cmake --build build --target tests
 
       - name: Run ctest
-        run: cmake --build build --target test
-
-      - name: Run clang analyzing
-        run: cmake --build build --target analyze
+        run: cmake --build build --target coverage
