@@ -55,11 +55,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up CMake
-        uses: jwlawson/actions-setup-cmake@v2
+      # - name: Set up CMake
+      #   uses: jwlawson/actions-setup-cmake@v2
 
       - name: Install dependencies
-        run: sudo apt-get install -y gcc g++ clang-tidy clang clang-tools
+        run: sudo apt-get install -y cmake clang-tidy clang clang-tools
 
       - name: Configure CMake
         run: cmake -B build -S . -DCMAKE_EXPORT_COMPILE_COMMANDS=True -DCMAKE_BUILD_TYPE=Asan
@@ -71,7 +71,7 @@ jobs:
         run: cmake --build build --target analyze
 
       - name: uppload clang-tidy report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: clang-tidy-report
-          path: build/analyzer/
+          path: hw_05/build/analyzer/
