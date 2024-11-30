@@ -64,15 +64,15 @@ jobs:
           # sudo apt-get install build-essential software-properties-common
           # sudo apt-add-repository "deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-15 main"
           # sudo apt-get install llvm-15
-          # llvm-config --version
           # sudo apt-get install clang-15 lld-15 lldb-15 llvm-15-dev llvm-15-tools
           sudo wget https://apt.llvm.org/llvm.sh
           sudo chmod +x llvm.sh
           sudo ./llvm.sh 17
+          llvm-config --version
           env
 
       - name: Check analyzer
-        run: python3 --version && dpkg -L clang-tools
+        run: sudo find / -iname analyze-build
 
       - name: Configure CMake
         run: cmake -B build -S . -DCMAKE_EXPORT_COMPILE_COMMANDS=True -DCMAKE_BUILD_TYPE=Asan
