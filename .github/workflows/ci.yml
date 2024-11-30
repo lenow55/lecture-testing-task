@@ -60,44 +60,32 @@ jobs:
 
       - name: Install dependencies
         run: |
-          # sudo apt-get update
-          # sudo apt-get install build-essential software-properties-common
-          # sudo apt-add-repository "deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-15 main"
-          # sudo apt-get install llvm-15
-          # sudo apt-get install clang-15 lld-15 lldb-15 llvm-15-dev llvm-15-tools
           sudo wget https://apt.llvm.org/llvm.sh
           sudo chmod +x llvm.sh
           sudo ./llvm.sh 17
-          # llvm-config --version
-          clang --version
-          env
 
       - name: Add directory to PATH
         run: |
           echo "/usr/lib/llvm-15/bin" >> $GITHUB_PATH
           echo "Added to PATH"
 
-      - name: Verify PATH
-        run: env
-
       - name: Check analyzer
-        run: sudo find / -iname analyze-build
+        run: analyze-build
 
       - name: Configure CMake
         run: cmake -B build -S . -DCMAKE_EXPORT_COMPILE_COMMANDS=True -DCMAKE_BUILD_TYPE=Asan
 
       - name: Build project and run scan
         run: cmake --build build --target main
-      #   run: scan-build -o ./scan-build-out cmake --build build --target main
-      #     && cd build
-      #     && scan-build -o ../scan-build-out make
 
       - name: Run analyze
-        run: cmake --build build --target analyze
+        run: |
+          cmake --build build --target analyze
+          scan-view ./build/analyzer/
+          ls ./build/analyzer
 
       - name: uppload clang-tidy report
         uses: actions/upload-artifact@v4
         with:
           name: clang-tidy-report
           path: hw_05/build/analyzer/
-          # path: hw_05/scan-build-out/
