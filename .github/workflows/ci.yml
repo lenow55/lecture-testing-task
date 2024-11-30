@@ -68,8 +68,7 @@ jobs:
         run: cmake -B build -S . -DCMAKE_EXPORT_COMPILE_COMMANDS=True -DCMAKE_BUILD_TYPE=Asan
 
       - name: Build project and run scan
-        run: -|
-          scan-build -o ./scan-build-out cmake --build build --target main
+        run: scan-build -o ./scan-build-out cmake --build build --target main
           && cd build
           && scan-build -o ../scan-build-out make
 
