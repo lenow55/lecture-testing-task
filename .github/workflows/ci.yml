@@ -20,7 +20,7 @@ jobs:
         uses: jwlawson/actions-setup-cmake@v1
 
       - name: Install dependencies
-        run: sudo apt-get install -y gcc g++ cmake clang-tidy
+        run: sudo apt-get install -y gcc g++ cmake clang-tidy gcovr
 
       - name: Configure CMake
         run: cmake -B build -S 05_hw -DCMAKE_BUILD_TYPE=Asan -DCMAKE_EXPORT_COMPILE_COMMANDS=True -DSTACKLIB_COVERAGE=ON

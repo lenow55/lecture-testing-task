@@ -1,0 +1,10 @@
+[
+    {
+        "name": "Windows Kit",
+        "generator": "MinGW Makefiles",
+        "compilers": {
+            "C": "C:\\MinGW\\bin\\gcc.exe",
+            "CXX": "C:\\MinGW\\bin\\g++.exe"
+        }
+    }
+]
