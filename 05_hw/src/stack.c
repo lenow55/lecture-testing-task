@@ -36,7 +36,7 @@ void pop(Stack* stack) {
     Node* temp = stack->top;
     stack->top = stack->top->next;
     // free(temp);
-    temp = NULL;
+    // temp = NULL;
 }
 
 Node* searchByValue(Stack* stack, int value) {
