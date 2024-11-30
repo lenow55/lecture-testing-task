@@ -2,3 +2,5 @@
 **/out
 compile_commands.json
 coverage
+05_hw/build
+05_hw/venv
